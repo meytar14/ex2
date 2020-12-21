@@ -30,12 +30,12 @@ public class myFrame2 extends JFrame {
         this.setVisible(true);
         agents=new ArrayList<>();
     }
-    public void update(Arena ar,long timeToEnd, ArrayList<CL_Agent> agents,directed_weighted_graph gg) {
-        this._ar = ar;
+    public void update(Arena ar,long timeToEnd, ArrayList<CL_Agent> agents) {
+
         Range rx = new Range(20,this.getWidth()-20);
         Range ry = new Range(20,this.getHeight()-20);
         Range2D frame = new Range2D(rx,ry);
-        panel.updateFrame(_ar,frame,timeToEnd,agents,gg);
+        panel.updateFrame(ar,frame,timeToEnd,agents);
     }
     public static void main(String[] args) {
         new myFrame2();

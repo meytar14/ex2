@@ -36,6 +36,7 @@ public class NodeData implements node_data, Comparator<NodeData> {
         this.info=info;
         this.tag=tag;
         this.neighborsEdges=new HashMap<Integer, edge_data>();
+        this.connectedTo=new HashSet<>();
     }
     public NodeData copy()
     {

@@ -7,7 +7,23 @@ import api.geo_location;
 public class Range2D {
 	private Range _y_range;
 	private Range _x_range;
-	
+
+	public Range get_x_range() {
+		return _x_range;
+	}
+
+	public void set_x_range(Range _x_range) {
+		this._x_range = _x_range;
+	}
+
+	public Range get_y_range() {
+		return _y_range;
+	}
+
+	public void set_y_range(Range _y_range) {
+		this._y_range = _y_range;
+	}
+
 	public Range2D(Range x, Range y) {
 		_x_range = new Range(x);
 		_y_range = new Range(y);

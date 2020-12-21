@@ -190,6 +190,10 @@ public class CL_Agent implements Runnable {
 		}
 	private ArrayList<node_data> choosePath(CL_Agent ag, CL_Pokemon closestPokemon,DW_Graph_Algo graph_algo) {
 		ArrayList<node_data> path=(ArrayList)graph_algo.shortestPath(ag.getSrcNode(),closestPokemon.get_edge().getSrc());
+		if(path==null)
+		{
+			path=new ArrayList<>();
+		}
 		if(path.size()>0) {
 			path.remove(0);
 		}
@@ -233,13 +237,10 @@ public class CL_Agent implements Runnable {
 			CL_Pokemon closestPokemon = findClosestPokemon(cl_fs, this, graph_algo);
 			this.set_curr_fruit(closestPokemon);
 			this.path=choosePath(this, closestPokemon, graph_algo);
-
-			System.out.println(this.path);
 			return this.path.remove(0).getKey();
 		}
 		else{
 			int nextNode = this.path.remove(0).getKey();
-			//.out.println(nextNode);
 			return nextNode;
 		}
 	}

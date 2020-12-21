@@ -3,7 +3,6 @@ package gameClient;
 import Server.Game_Server_Ex2;
 import api.*;
 import com.google.gson.Gson;
-import gameClient.util.Range2D;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,7 +13,7 @@ import java.util.List;
 
 public class Ex2 implements Runnable{
     private  myFrame2 _win;
-    private login loginframe;
+    private Login loginframe;
     private  Arena _ar;
     private ArrayList<CL_Agent> agents;
     private String[] args;
@@ -46,20 +45,26 @@ public class Ex2 implements Runnable{
     @Override
     public void run() {
         int level_number;
-        int id;
+        long id;
         if(args.length==2)
         {
             id=Integer.parseUnsignedInt(args[0]);
             level_number=Integer.parseUnsignedInt(args[1]);
         }
         else {
-            loginframe = new login();
+            loginframe = new Login();
             Thread log=new Thread(loginframe);
             log.start();
-
-            level_number=20;
+            try {
+                log.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            level_number=loginframe.getLevel();
+            id=loginframe.getId();
         }
         game_service game=Game_Server_Ex2.getServer(level_number);
+       // game.login(id);
         init(game);
         _win.setVisible(true);
         game.startGame();
@@ -93,7 +98,7 @@ public class Ex2 implements Runnable{
             updateAgents(game,gg);
             //moveAgants(game, gg);
             try {
-                _win.update(_ar,timeToEnd,agents,gg);
+                _win.update(_ar,timeToEnd,agents);
                 _win.repaint();
                 Thread.sleep(dt);
 
@@ -256,7 +261,7 @@ public class Ex2 implements Runnable{
             }
             setAgents(agents);
             setThreads(threads);
-            _win.update(_ar,game.timeToEnd(),agents,gg);
+            _win.update(_ar,game.timeToEnd(),agents);
         }
         catch (JSONException e) {e.printStackTrace();}
     }
