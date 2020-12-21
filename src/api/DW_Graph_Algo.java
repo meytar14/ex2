@@ -170,10 +170,20 @@ public class DW_Graph_Algo implements dw_graph_algorithms {
             ArrayList<node_data> RePath=new ArrayList<node_data>();//path from dest to src
             RePath.add(g.getNode(dest));
             node_data next=parent.get(dest);
-            while(next!=null)
+            /*while(next!=null)
             {
                 RePath.add(next);
                 next=parent.get(next.getKey());
+            }*/
+            for(int i=0;i<parent.size();i++)
+            {
+                RePath.add(next);
+                if(next.getKey()==src) {
+                    break;
+                }
+                else {
+                    next = parent.get(next.getKey());
+                }
             }
             ArrayList<node_data> path=new ArrayList<node_data>();//path from src to dest
             int count=0;

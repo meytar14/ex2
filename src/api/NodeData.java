@@ -148,6 +148,7 @@ public class NodeData implements node_data, Comparator<NodeData> {
         this.connectedTo=new HashSet<Integer>();
     }
 
+
     public class helpNodeData
     {
         String pos;

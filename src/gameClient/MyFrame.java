@@ -40,7 +40,7 @@ public class MyFrame extends JFrame{
 		directed_weighted_graph g = _ar.getGraph();
 		_w2f = Arena.w2f(g,frame);
 	}
-	public void paint(Graphics g) {
+	/*public void paint(Graphics g) {
 		int w = this.getWidth();
 		int h = this.getHeight();
 		g.clearRect(0, 0, w, h);
@@ -50,7 +50,7 @@ public class MyFrame extends JFrame{
 		drawAgants(g);
 		drawInfo(g);
 		
-	}
+	}*/
 	private void drawInfo(Graphics g) {
 		List<String> str = _ar.get_info();
 		String dt = "none";

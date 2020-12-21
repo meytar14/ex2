@@ -1,9 +1,6 @@
 package gameClient;
 
-import api.directed_weighted_graph;
-import api.edge_data;
-import api.geo_location;
-import api.node_data;
+import api.*;
 import gameClient.util.Point3D;
 import gameClient.util.Range;
 import gameClient.util.Range2D;
@@ -30,6 +27,7 @@ public class Arena {
 	private static Point3D MIN = new Point3D(0, 100,0);
 	private static Point3D MAX = new Point3D(0, 100,0);
 
+
 	public Arena() {
 		_info = new ArrayList<String>();
 	}
@@ -38,6 +36,9 @@ public class Arena {
 		this.setAgents(r);
 		this.setPokemons(p);
 	}
+
+
+
 	public void setPokemons(List<CL_Pokemon> f) {
 		this._pokemons = f;
 	}
@@ -60,12 +61,12 @@ public class Arena {
 		double dx = x1-x0, dy = y1-y0;
 		MIN = new Point3D(x0-dx/10,y0-dy/10);
 		MAX = new Point3D(x1+dx/10,y1+dy/10);
-		
+
 	}
 	public List<CL_Agent> getAgents() {return _agents;}
 	public List<CL_Pokemon> getPokemons() {return _pokemons;}
 
-	
+
 	public directed_weighted_graph getGraph() {
 		return _gg;
 	}
@@ -131,7 +132,7 @@ public class Arena {
 		boolean ans = false;
 		double dist = src.distance(dest);
 		double d1 = src.distance(p) + p.distance(dest);
-		if(dist-d1<EPS2) {ans = true;}
+		if(dist>d1-EPS2) {ans = true;}
 		return ans;
 	}
 	private static boolean isOnEdge(geo_location p, int s, int d, directed_weighted_graph g) {

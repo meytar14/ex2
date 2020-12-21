@@ -7,6 +7,8 @@ import gameClient.util.Range;
 import gameClient.util.Range2D;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class myFrame2 extends JFrame {
@@ -26,22 +28,17 @@ public class myFrame2 extends JFrame {
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+        agents=new ArrayList<>();
     }
-    public void update(Arena ar) {
+    public void update(Arena ar,long timeToEnd, ArrayList<CL_Agent> agents,directed_weighted_graph gg) {
         this._ar = ar;
         Range rx = new Range(20,this.getWidth()-20);
         Range ry = new Range(20,this.getHeight()-20);
         Range2D frame = new Range2D(rx,ry);
-        panel.updateFrame(_ar,frame);
+        panel.updateFrame(_ar,frame,timeToEnd,agents,gg);
     }
     public static void main(String[] args) {
         new myFrame2();
     }
-    public void update(String graph,String agents,String pokemons)
-    {
-        Gson gson=new Gson();
-        DWGraph_DS.helpDWGraph_DS g = gson.fromJson(graph, DWGraph_DS.helpDWGraph_DS.class);
-        this.graph = new DWGraph_DS(g);
 
-    }
 }

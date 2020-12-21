@@ -7,6 +7,7 @@ import gameClient.util.Range2Range;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 import java.util.List;
 
 public class graphPanel extends JPanel {
@@ -14,7 +15,8 @@ public class graphPanel extends JPanel {
     private List<CL_Agent> agents;
     private List<CL_Pokemon> pokemons;
     private Range2D dim;
-
+    private long timeToEnd;
+    private String grade;
 
 
     public graphPanel()
@@ -33,11 +35,13 @@ public class graphPanel extends JPanel {
         Range ry = new Range(this.getHeight()-10,150);
         Range2D frame = new Range2D(rx,ry);
         Range2Range r2r=Arena.w2f(graph,frame);
+        g.drawString("time:"+timeToEnd,15,30);
         for(node_data n:graph.getV())//draw the nodes of this graph
         {
             g.setColor(Color.blue);
            geo_location l1 =r2r.world2frame(n.getLocation());
             g.fillOval((int)l1.x()-5,(int)l1.y()-5,10,10);
+            g.drawString(String.valueOf(n.getKey()),(int)l1.x()-5,(int)l1.y()-7);
             temp=(NodeData)n;
             g.setColor(Color.black);
             for(int dest:temp.getNeighborsEdgeskeys())//draw the edges
@@ -49,7 +53,7 @@ public class graphPanel extends JPanel {
         }
         for(CL_Pokemon p:pokemons)//draw the pokemons
         {
-            if(p.getType()==1)
+            if(p.getType()==-1)
             {
                 g.setColor(Color.green);
                 geo_location l2 =r2r.world2frame(p.getLocation());
@@ -72,12 +76,14 @@ public class graphPanel extends JPanel {
 
     }
 
-    public void updateFrame(Arena _ar,Range2D dim)
+    public void updateFrame(Arena _ar, Range2D dim, long timeToEnd,List<CL_Agent> agents,directed_weighted_graph gg)
     {
-        this.graph=(DWGraph_DS)_ar.getGraph();
-        this.agents=_ar.getAgents();
+        this.graph=(DWGraph_DS)gg;
         this.pokemons=_ar.getPokemons();
         this.dim=dim;
+        this.timeToEnd=timeToEnd;
+        this.grade=grade;
+        this.agents=agents;
 
     }
 }

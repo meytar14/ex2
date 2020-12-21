@@ -3,7 +3,9 @@ import api.edge_data;
 import gameClient.util.Point3D;
 import org.json.JSONObject;
 
-public class CL_Pokemon {
+import java.util.Comparator;
+
+public class CL_Pokemon implements Comparator<CL_Pokemon> {
 	private edge_data _edge;
 	private double _value;
 	private int _type;
@@ -11,7 +13,7 @@ public class CL_Pokemon {
 	private double min_dist;
 	private int min_ro;
 	
-	public CL_Pokemon(Point3D p, int t, double v, double s, edge_data e) {
+	public CL_Pokemon (Point3D p, int t, double v, double s, edge_data e) {
 		_type = t;
 	//	_speed = s;
 		_value = v;
@@ -64,5 +66,10 @@ public class CL_Pokemon {
 
 	public void setMin_ro(int min_ro) {
 		this.min_ro = min_ro;
+	}
+
+
+	public int compare(CL_Pokemon o1, CL_Pokemon o2) {
+		return Double.compare(o1.getValue(),o2.getValue());
 	}
 }
