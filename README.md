@@ -9,11 +9,11 @@ In order for the agent to catch the pokemon, he needs to pass by the pokemon edg
 when an agent catches a pokemon, the pokemon spawn in an other loction on the graph.
 
 
-##Explanantion on the code:
+## Explanantion on the code:
 The main program is Ex2, when we start Ex2 the login frame is openning and we need to insert an id, and a level number.
 When we click the button the game frame (myFrame2) shown and the game start.
 
-##Explanantion on the algorithm:
+## Explanantion on the algorithm:
 Each agent has its own thread that responsible for finding the clossest pokemon to this agents and than calculating the shortest path to him.
 when the agent cathes a pokemon, he searching for the next clossest pokemon to catch.
 the information about the agents and the pokemons is updating 10 times every second while the game is running.
