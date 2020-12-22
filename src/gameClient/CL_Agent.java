@@ -33,18 +33,28 @@ public class CL_Agent implements Runnable {
 		return _ar;
 	}
 
+	/**
+	 * set the Arena of the agent
+	 * @param _ar
+	 */
 	public void set_ar(Arena _ar) {
 		this._ar = _ar;
 	}
 
-	public DW_Graph_Algo getGraph_algo() {
-		return graph_algo;
-	}
 
+	/**
+	 * set the grap_Algo of the agent
+	 * @param graph_algo
+	 */
 	public void setGraph_algo(DW_Graph_Algo graph_algo) {
 		this.graph_algo = graph_algo;
 	}
 
+	/**
+	 * constructor
+	 * @param g
+	 * @param start_node
+	 */
 	public CL_Agent (directed_weighted_graph g, int start_node) {
 			_gg = g;
 			setMoney(0);
@@ -55,14 +65,26 @@ public class CL_Agent implements Runnable {
 			path=new ArrayList<>();
 		}
 
+	/**
+	 * return the game_Service of the agent
+	 * @return
+	 */
 	public game_service getGame() {
 		return game;
 	}
 
+	/**
+	 * set the game_Service of the agent
+	 * @param game
+	 */
 	public void setGame(game_service game) {
 		this.game = game;
 	}
 
+	/**
+	 * update all the data of the agent
+	 * @param json
+	 */
 	public void update(String json) {
 			JSONObject line;
 			try {
@@ -91,20 +113,20 @@ public class CL_Agent implements Runnable {
 			}
 		}
 
-
+	/**
+	 * set the id of the agent
+	 * @param _id
+	 */
 	public void set_id(int _id) {
 		this._id = _id;
 	}
 
-	public ArrayList<node_data> getPath() {
-		return path;
-	}
-
-	public void setPath(ArrayList<node_data> path) {
-		this.path = path;
-	}
-
 	//@Override
+
+	/**
+	 * return the curr node of the agent
+	 * @return
+	 */
 		public int getSrcNode() {return this._curr_node.getKey();}
 		public String toJSON() {
 			int d = this.getNextNode();
@@ -120,7 +142,12 @@ public class CL_Agent implements Runnable {
 			return ans;	
 		}
 		private void setMoney(double v) {_value = v;}
-	
+
+	/**
+	 * set the next node of the agent
+	 * @param dest
+	 * @return
+	 */
 		public boolean setNextNode(int dest) {
 			boolean ans = false;
 			int src = this._curr_node.getKey();
@@ -131,40 +158,57 @@ public class CL_Agent implements Runnable {
 			else {_curr_edge = null;}
 			return ans;
 		}
+
+	/**
+	 * set the current node of the agent
+	 * @param src
+	 */
 		public void setCurrNode(int src) {
 			this._curr_node = _gg.getNode(src);
 		}
+
+	/**
+	 * return true if the agent is moving, else return false
+	 * @return
+	 */
 		public boolean isMoving() {
 			return this._curr_edge!=null;
 		}
 		public String toString() {
 			return toJSON();
 		}
-		public String toString1() {
-			String ans=""+this.getID()+","+_pos+", "+isMoving()+","+this.getValue();	
-			return ans;
-		}
+
+	/**
+	 * return the ID of the agent
+	 * @return
+	 */
 		public int getID() {
 			// TODO Auto-generated method stub
 			return this._id;
 		}
-	
+
+	/**
+	 * return the location of the agent
+	 * @return
+	 */
 		public geo_location getLocation() {
 			// TODO Auto-generated method stub
 			return _pos;
 		}
 
-		
-		public double getValue() {
+	/**
+	 * return the value of the agent
+	 * @return
+	 */
+	public double getValue() {
 			// TODO Auto-generated method stub
 			return this._value;
 		}
 
-
-	public void set_curr_edge(edge_data _curr_edge) {
-		this._curr_edge = _curr_edge;
-	}
-
+	/**
+	 * return the next node of the agent, return -1 if the agent is already on a node.
+	 * @return
+	 */
 	public int getNextNode() {
 			int ans = -2;
 			if(this._curr_edge==null) {
@@ -175,19 +219,45 @@ public class CL_Agent implements Runnable {
 			return ans;
 		}
 
+	/**
+	 * return the speed of the agent
+	 * @return
+	 */
 		public double getSpeed() {
 			return this._speed;
 		}
 
+	/**
+	 * set  the speed of the agent
+	 * @param v
+	 */
 		public void setSpeed(double v) {
 			this._speed = v;
 		}
+
+	/**
+	 * return the pokemon that the agent is chasing after
+	 * @return
+	 */
 		public CL_Pokemon get_curr_fruit() {
 			return _curr_fruit;
 		}
+
+	/**
+	 * set the pokemon that the agent is chasing after
+	 * @param curr_fruit
+	 */
 		public void set_curr_fruit(CL_Pokemon curr_fruit) {
 			this._curr_fruit = curr_fruit;
 		}
+
+	/**
+	 * find and return the shortest path from the agent to this pokemon.
+	 * @param ag
+	 * @param closestPokemon
+	 * @param graph_algo
+	 * @return
+	 */
 	private ArrayList<node_data> choosePath(CL_Agent ag, CL_Pokemon closestPokemon,DW_Graph_Algo graph_algo) {
 		ArrayList<node_data> path=(ArrayList)graph_algo.shortestPath(ag.getSrcNode(),closestPokemon.get_edge().getSrc());
 		if(path==null)
@@ -199,26 +269,22 @@ public class CL_Agent implements Runnable {
 		}
 		path.add(graph_algo.getGraph().getNode(closestPokemon.get_edge().getDest()));
 		return path;
-		/*LinkedList<Integer> finalPath=new LinkedList<>();
-		for(int i=0;i<path.size();i++)
-		{
-			finalPath.add(path.get(i).getKey());
-		}
-		if(finalPath.size()>0)
-		{
-			finalPath.poll();
-		}
-		finalPath.add(closestPokemon.get_edge().getDest());
-		return finalPath;*/
 	}
 
+	/**
+	 * find and return the closest pokemon to this agent.
+	 * @param cl_fs
+	 * @param ag
+	 * @param graph_algo
+	 * @return
+	 */
 	private CL_Pokemon findClosestPokemon(List<CL_Pokemon> cl_fs, CL_Agent ag,DW_Graph_Algo graph_algo) {
 		CL_Pokemon clososetPokemon=cl_fs.get(0);
-		double Mindistance=graph_algo.shortestPathDist(ag.getSrcNode(),clososetPokemon.get_edge().getSrc());
+		double Mindistance=graph_algo.shortestPathDist(ag.getSrcNode(),clososetPokemon.get_edge().getDest());
 		int index=0;
 		for(int i=1;i<cl_fs.size();i++)
 		{
-			double thisDistance=graph_algo.shortestPathDist(ag.getSrcNode(),cl_fs.get(i).get_edge().getSrc());
+			double thisDistance=graph_algo.shortestPathDist(ag.getSrcNode(),cl_fs.get(i).get_edge().getDest());
 			if(Mindistance>thisDistance)
 			{
 				Mindistance=thisDistance;
@@ -229,6 +295,11 @@ public class CL_Agent implements Runnable {
 		cl_fs.remove(index);
 		return clososetPokemon;
 	}
+
+	/**
+	 * return the next node that in the path to the pokemon
+	 * @return
+	 */
 	private int nextNode() {
 
 		if (this.path.size() == 0) {
@@ -241,36 +312,16 @@ public class CL_Agent implements Runnable {
 		}
 		else{
 			int nextNode = this.path.remove(0).getKey();
+			if(path.size()>=4) {
+				if (nextNode == this.path.get(3).getKey()) {
+					this.path = new ArrayList<>();
+					return -1;
+				}
+
+			}
 			return nextNode;
 		}
 	}
-		public void set_SDT(long ddtt) {
-			long ddt = ddtt;
-			if(this._curr_edge!=null) {
-				double w = get_curr_edge().getWeight();
-				geo_location dest = _gg.getNode(get_curr_edge().getDest()).getLocation();
-				geo_location src = _gg.getNode(get_curr_edge().getSrc()).getLocation();
-				double de = src.distance(dest);
-				double dist = _pos.distance(dest);
-				if(this.get_curr_fruit().get_edge()==this.get_curr_edge()) {
-					 dist = _curr_fruit.getLocation().distance(this._pos);
-				}
-				double norm = dist/de;
-				double dt = w*norm / this.getSpeed(); 
-				ddt = (long)(1000.0*dt);
-			}
-			this.set_sg_dt(ddt);
-		}
-		
-		public edge_data get_curr_edge() {
-			return this._curr_edge;
-		}
-		public long get_sg_dt() {
-			return _sg_dt;
-		}
-		public void set_sg_dt(long _sg_dt) {
-			this._sg_dt = _sg_dt;
-		}
 
 	@Override
 	public void run()

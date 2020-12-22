@@ -11,6 +11,9 @@ import java.util.*;
 public class DW_Graph_Algo implements dw_graph_algorithms {
     private DWGraph_DS g;
 
+    /**
+     * constructor
+     */
     public DW_Graph_Algo()
     {
         this.g=null;
@@ -24,6 +27,11 @@ public class DW_Graph_Algo implements dw_graph_algorithms {
         }
         this.g=null;
     }
+
+    /**
+     * initializing this "g" to this graph.
+     * @param g
+     */
     @Override
     public void init(directed_weighted_graph g) {
         if(g instanceof DWGraph_DS)
@@ -35,17 +43,29 @@ public class DW_Graph_Algo implements dw_graph_algorithms {
         }
     }
 
+    /**
+     * return this graph.
+     * @return
+     */
     @Override
     public directed_weighted_graph getGraph() {
         return this.g;
     }
 
+    /**
+     * return a deep copy of this graph.
+     * @return
+     */
     @Override
     public directed_weighted_graph copy() {
         DWGraph_DS graph=new DWGraph_DS(this.g);
         return  graph;
     }
 
+    /**
+     * return true if this graph is connected, else return false.
+     * @return
+     */
     @Override
     public boolean isConnected() {
         if(g.nodeSize()==0)
@@ -88,7 +108,7 @@ public class DW_Graph_Algo implements dw_graph_algorithms {
                     {
                         if(!visited.contains(ni))
                         {
-                            nextToVisit.add(g.getNode(ni));
+                            nextToVisit.add(reverseG.getNode(ni));
                             visited.add(ni);
                         }
                     }
@@ -97,42 +117,26 @@ public class DW_Graph_Algo implements dw_graph_algorithms {
                     return true;
             return false;
             }
-
-        /*
-        if(this.g.nodeSize()-1>this.g.edgeSize())
-            return false;
-        for(node_data n:this.g.getV())
-        {
-            LinkedList<node_data> nextToVisit =new LinkedList<node_data>();
-            HashSet<Integer> visited =new HashSet<Integer>();//the nodes we already visited
-            nextToVisit.add(n);
-            visited.add(n.getKey());
-            NodeData temp;
-            while (!nextToVisit.isEmpty())
-            {
-                temp=(NodeData)nextToVisit.poll();
-                for(int ni: temp.getNeighborsEdgeskeys())
-                {
-                    if(!visited.contains(ni))
-                    {
-                        nextToVisit.add(g.getNode(ni));
-                        visited.add(ni);
-                    }
-                }
-            }
-            if(visited.size()!=g.nodeSize())
-                return false;
-        }
-        return true;*/
     }
 
-
+    /**
+     * return the distance of the shortest path between src and dest.
+     * @param src - start node
+     * @param dest - end (target) node
+     * @return
+     */
     @Override
     public double shortestPathDist(int src, int dest) {
         shortestPath(src,dest);
         return g.getNode(dest).getWeight();
     }
 
+    /**
+     * return the shortest path between src and dest.
+     * @param src - start node
+     * @param dest - end (target) node
+     * @return
+     */
     @Override
     public List<node_data> shortestPath(int src, int dest) {
         HashMap<Integer,node_data> parent=new HashMap<Integer,node_data>();//<key of the node,his parent>
@@ -143,7 +147,7 @@ public class DW_Graph_Algo implements dw_graph_algorithms {
         {
             n.setWeight(-1);
         }
-        c.setTag(0);
+        c.setWeight(0);
         pq.add(c);
         while(!pq.isEmpty())
         {
@@ -203,6 +207,11 @@ public class DW_Graph_Algo implements dw_graph_algorithms {
         return null;
     }
 
+    /**
+     * save this graph.
+     * @param file - the file name (may include a relative path).
+     * @return
+     */
     @Override
     public boolean save(String file) {
        try
@@ -228,6 +237,11 @@ public class DW_Graph_Algo implements dw_graph_algorithms {
        return false;
     }
 
+    /**
+     * load this graph into this "g"
+     * @param file - file name of JSON file
+     * @return
+     */
     @Override
     public boolean load(String file) {
         try {

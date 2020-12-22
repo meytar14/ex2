@@ -27,24 +27,34 @@ public class Arena {
 	private static Point3D MIN = new Point3D(0, 100,0);
 	private static Point3D MAX = new Point3D(0, 100,0);
 
-
+	/**
+	 * the constructor
+	 */
 	public Arena() {
 		_info = new ArrayList<String>();
 	}
-	private Arena(directed_weighted_graph g, List<CL_Agent> r, List<CL_Pokemon> p) {
-		_gg = g;
-		this.setAgents(r);
-		this.setPokemons(p);
-	}
 
 
-
+	/**
+	 * set the pokemons of the arena
+	 * @param f
+	 */
 	public void setPokemons(List<CL_Pokemon> f) {
 		this._pokemons = f;
 	}
+
+	/**
+	 * set the agents of the arena
+	 * @param f
+	 */
 	public void setAgents(List<CL_Agent> f) {
 		this._agents = f;
 	}
+
+	/**
+	 * set the graph of the arena
+	 * @param g
+	 */
 	public void setGraph(directed_weighted_graph g) {this._gg =g;}//init();}
 	private void init( ) {
 		MIN=null; MAX=null;
@@ -64,12 +74,24 @@ public class Arena {
 
 	}
 	public List<CL_Agent> getAgents() {return _agents;}
+
+	/**
+	 * return the pokemons of the arena
+	 * @return
+	 */
 	public List<CL_Pokemon> getPokemons() {return _pokemons;}
 
-
+	/**
+	 * returns the graph of the arena
+	 * @return
+	 */
 	public directed_weighted_graph getGraph() {
 		return _gg;
 	}
+	/**
+	 * returns the info of the arena
+	 * @return
+	 */
 	public List<String> get_info() {
 		return _info;
 	}
@@ -94,6 +116,12 @@ public class Arena {
 		}
 		return ans;
 	}
+
+	/**
+	 * make an ArratList of pokemons from the string input.---------------------
+	 * @param fs
+	 * @return
+	 */
 	public static ArrayList<CL_Pokemon> json2Pokemons(String fs) {
 		ArrayList<CL_Pokemon> ans = new  ArrayList<CL_Pokemon>();
 		try {
@@ -140,6 +168,15 @@ public class Arena {
 		geo_location dest = g.getNode(d).getLocation();
 		return isOnEdge(p,src,dest);
 	}
+
+	/**
+	 * return true if this location is on this edge
+	 * @param p
+	 * @param e
+	 * @param type
+	 * @param g
+	 * @return
+	 */
 	private static boolean isOnEdge(geo_location p, edge_data e, int type, directed_weighted_graph g) {
 		int src = g.getNode(e.getSrc()).getKey();
 		int dest = g.getNode(e.getDest()).getKey();
@@ -148,6 +185,11 @@ public class Arena {
 		return isOnEdge(p,src, dest, g);
 	}
 
+	/**
+	 * return a Range2D that represents the area of the graph
+	 * @param g
+	 * @return
+	 */
 	private static Range2D GraphRange(directed_weighted_graph g) {
 		Iterator<node_data> itr = g.getV().iterator();
 		double x0=0,x1=0,y0=0,y1=0;
@@ -170,6 +212,13 @@ public class Arena {
 		Range yr = new Range(y0,y1);
 		return new Range2D(xr,yr);
 	}
+
+	/**
+	 * return a Range2Range from graph g to frame.
+	 * @param g
+	 * @param frame
+	 * @return
+	 */
 	public static Range2Range w2f(directed_weighted_graph g, Range2D frame) {
 		Range2D world = GraphRange(g);
 		Range2Range ans = new Range2Range(world, frame);

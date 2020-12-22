@@ -25,6 +25,10 @@ public class graphPanel extends JPanel {
 
     }
 
+    /**
+     * this function draw all the objects on the frame.
+     * @param g
+     */
     @Override
      public void paint(Graphics g) {
 
@@ -84,7 +88,7 @@ public class graphPanel extends JPanel {
     }
 
     /**
-     * this function update thr graphPanel
+     * this function update the variables in graphPanel:the graph, agents and pokemons.
      * @param _ar
      * @param dim
      * @param timeToEnd

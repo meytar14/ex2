@@ -10,10 +10,18 @@ public class DWGraph_DS implements directed_weighted_graph{
     private int EdgeSize;
     private int MC;
 
+    /**
+     * constructor
+     */
     public DWGraph_DS()
     {
         this.nodes=new HashMap<Integer, node_data>();
     }
+
+    /**
+     * a help constructor.
+     * @param g
+     */
     public DWGraph_DS(DWGraph_DS.helpDWGraph_DS g)
     {
          nodes=new HashMap<Integer, node_data>();
@@ -35,7 +43,10 @@ public class DWGraph_DS implements directed_weighted_graph{
         }
         this.nodes=nodes;
     }
-
+    /**
+     * constructor, make a deep copy from the input graph.
+     * @param g
+     */
     public DWGraph_DS(DWGraph_DS g)
     {
         HashMap<Integer,node_data> nodes=new HashMap<Integer, node_data>();
@@ -69,6 +80,11 @@ public class DWGraph_DS implements directed_weighted_graph{
         this.EdgeSize=g.edgeSize();
     }
 
+    /**
+     * return the node with this key, if this graph doesnt contain this node than return null.
+     * @param key - the node_id
+     * @return
+     */
     @Override
     public node_data getNode(int key) {
         if(this.nodes.containsKey(key))
@@ -76,17 +92,33 @@ public class DWGraph_DS implements directed_weighted_graph{
         return null;
     }
 
+    /**
+     * return the edge between src and dest.
+     * @param src
+     * @param dest
+     * @return
+     */
     @Override
     public edge_data getEdge(int src, int dest) {
         return ((NodeData)this.nodes.get(src)).getEdge(dest);
     }
 
+    /**
+     * add this node to the graph.
+     * @param n
+     */
     @Override
     public void addNode(node_data n) {
         nodes.put(n.getKey(),n);
         MC++;
     }
 
+    /**
+     * connect between src to dest.
+     * @param src - the source of the edge.
+     * @param dest - the destination of the edge.
+     * @param w - positive weight representing the cost (aka time, price, etc) between src-->dest.
+     */
     @Override
     public void connect(int src, int dest, double w) {
         if(nodes.get(src)!=null &&nodes.get(dest)!=null&& src!=dest && w>=0)
@@ -99,16 +131,30 @@ public class DWGraph_DS implements directed_weighted_graph{
         }
     }
 
+    /**
+     * return a collection of all the nodes in the graph
+     * @return
+     */
     @Override
     public Collection<node_data> getV() {
         return nodes.values();
     }
 
+    /**
+     * return a collection of all the edges that this node is the src of.
+     * @param node_id
+     * @return
+     */
     @Override
     public Collection<edge_data> getE(int node_id) {
         return ((NodeData)nodes.get(node_id)).getNeighborsEdgesValues();
     }
 
+    /**
+     * remove this node from the graph.
+     * @param key
+     * @return
+     */
     @Override
     public node_data removeNode(int key) {
         if(nodes.containsKey(key))
@@ -132,6 +178,12 @@ public class DWGraph_DS implements directed_weighted_graph{
         return null;
     }
 
+    /**
+     * remove this edge from the graph.
+     * @param src
+     * @param dest
+     * @return
+     */
     @Override
     public edge_data removeEdge(int src, int dest) {
         edge_data e=((NodeData)nodes.get(src)).removeNi(dest);
@@ -144,16 +196,28 @@ public class DWGraph_DS implements directed_weighted_graph{
         return null;
     }
 
+    /**
+     * return the number of nodes in the graph.
+     * @return
+     */
     @Override
     public int nodeSize() {
         return nodes.size();
     }
 
+    /**
+     * return the number of edges in the graph.
+     * @return
+     */
     @Override
     public int edgeSize() {
         return this.EdgeSize;
     }
 
+    /**
+     * return the number of actions we did on the graph.
+     * @return
+     */
     @Override
     public int getMC() {
         return this.MC;

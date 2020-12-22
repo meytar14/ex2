@@ -19,7 +19,9 @@ public class myFrame2 extends JFrame {
     private List<CL_Pokemon> pokemons;
     private Arena _ar;
 
-
+    /**
+     * constructor of the game frame (myFrame2)
+     */
     myFrame2(){
 
         panel = new graphPanel();
@@ -30,6 +32,14 @@ public class myFrame2 extends JFrame {
         this.setVisible(true);
         agents=new ArrayList<>();
     }
+
+    /**
+     * this function linking between the update function in the graphPanel and the main program Ex2 and passes to "update" function all the
+     * variabels she needs.
+     * @param ar
+     * @param timeToEnd
+     * @param agents
+     */
     public void update(Arena ar,long timeToEnd, ArrayList<CL_Agent> agents) {
 
         Range rx = new Range(20,this.getWidth()-20);

@@ -23,14 +23,25 @@ t.start();
 
     }
 
+    /**
+     * returns the num of level
+     * @return
+     */
     public int getLevel() {
         return level;
     }
 
+    /**
+     * returb id
+     * @return
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * constructor of the login frame
+     */
     public Login()
 {
     setLayout(null);
@@ -45,7 +56,7 @@ t.start();
     login_label.setFont(f);
     loginButton.setAction(new AbstractAction() {
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {//when we click the button
             try {
                 id = Long.parseLong(idTextField.getText());
             }
@@ -66,7 +77,7 @@ t.start();
             setVisible(false);
         }
     });
-
+    //the id textField
     idTextField=new JTextArea();
     idTextField.setBounds(getWidth()/2,50,60,20);
     idTextField.setBorder(BorderFactory.createBevelBorder(1));
@@ -75,7 +86,7 @@ t.start();
     id_label.setFont(f);
 
 
-
+    //the level textField
     levelTextField=new JTextArea();
     levelTextField.setBounds(getWidth()/2,80,30,20);
     levelTextField.setBorder(BorderFactory.createBevelBorder(1));
@@ -83,6 +94,7 @@ t.start();
     level_label.setBounds(getWidth()/2-63,80,63,20);
     level_label.setFont(f);
 
+    //add all the fields,labels and button
     add(levelTextField);
     add(idTextField);
     add(loginButton);
